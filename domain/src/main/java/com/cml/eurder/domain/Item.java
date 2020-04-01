@@ -1,18 +1,26 @@
 package com.cml.eurder.domain;
 
+import java.util.UUID;
+
 public class Item implements Orderable {
     private String id;
     private String name;
     private String description;
     private int stockAmount;
     private Price price;
+    private boolean available;
 
     public Item(ItemBuilder itemBuilder) {
-        this.id = itemBuilder.id;
+        this.id = UUID.randomUUID().toString();
         this.name = itemBuilder.name;
         this.description = itemBuilder.description;
         this.stockAmount = itemBuilder.stockAmount;
         this.price = itemBuilder.price;
+        this.available = true;
+    }
+
+    public boolean isAvailable() {
+        return available;
     }
 
     @Override
@@ -35,8 +43,12 @@ public class Item implements Orderable {
         return 0;
     }
 
-    public static class ItemBuilder {
-        private String id;
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public static class ItemBuilder { ;
         private String name;
         private String description;
         private int stockAmount;
@@ -52,10 +64,6 @@ public class Item implements Orderable {
             return new Item(this);
         }
 
-        public ItemBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
         public ItemBuilder withName(String name) {
             this.name = name;
             return this;

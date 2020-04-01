@@ -5,4 +5,5 @@ public interface Orderable {
     String getDescription();
     Price getPrice();
     int getAmount();
+    String getId();
 }
