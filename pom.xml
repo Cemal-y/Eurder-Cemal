@@ -29,17 +29,17 @@
     <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>com.cml</groupId>
+            <groupId>com.cml.eurder</groupId>
             <artifactId>domain</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.cml</groupId>
+            <groupId>com.cml.eurder</groupId>
             <artifactId>api</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.cml</groupId>
+            <groupId>com.cml.eurder</groupId>
             <artifactId>service</artifactId>
             <version>0.0.1</version>
         </dependency>

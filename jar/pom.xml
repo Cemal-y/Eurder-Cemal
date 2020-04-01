@@ -19,7 +19,6 @@
         <dependency>
             <groupId>com.cml.eurder</groupId>
             <artifactId>api</artifactId>
-            <version>0.0.1</version>
         </dependency>
     </dependencies>
 
