@@ -1,10 +1,12 @@
-package com.cml.eurder.domain;
+package com.cml.eurder.domain.item;
 
 import com.cml.eurder.domain.exceptions.InputCanNotBeNullException;
 import com.cml.eurder.domain.exceptions.ItemIsNotAvailableException;
+import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class ItemRepository {
     private ConcurrentHashMap<String, Item> itemDatabase;
 

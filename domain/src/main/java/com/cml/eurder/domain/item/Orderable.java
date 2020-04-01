@@ -1,4 +1,4 @@
-package com.cml.eurder.domain;
+package com.cml.eurder.domain.item;
 
 public interface Orderable {
     String getName();

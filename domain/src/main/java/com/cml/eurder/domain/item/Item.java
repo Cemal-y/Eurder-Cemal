@@ -1,4 +1,4 @@
-package com.cml.eurder.domain;
+package com.cml.eurder.domain.item;
 
 import java.util.UUID;
 
@@ -48,7 +48,7 @@ public class Item implements Orderable {
         return id;
     }
 
-    public static class ItemBuilder { ;
+    public static class ItemBuilder {
         private String name;
         private String description;
         private int stockAmount;
