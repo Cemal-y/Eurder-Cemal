@@ -29,17 +29,17 @@
         <dependency>
             <groupId>com.cml.eurder</groupId>
             <artifactId>domain</artifactId>
-            <version>${project.version}</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.cml.eurder</groupId>
             <artifactId>api</artifactId>
-            <version>${project.version}</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.cml.eurder</groupId>
             <artifactId>service</artifactId>
-            <version>${project.version}</version>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
     </dependencyManagement>
@@ -73,14 +73,6 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <reporting>
         <plugins>
