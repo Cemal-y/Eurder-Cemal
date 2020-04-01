@@ -24,7 +24,6 @@
             <groupId>com.cml.eurder</groupId>
             <artifactId>domain</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
