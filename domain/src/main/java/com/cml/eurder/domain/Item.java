@@ -1,4 +1,4 @@
-package domain;
+package com.cml.eurder.domain;
 
 public class Item implements Orderable {
     private String id;

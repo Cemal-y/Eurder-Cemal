@@ -1,4 +1,4 @@
-package com.cml.jar;
+package com.cml.eurder.jar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
