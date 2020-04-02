@@ -1,5 +1,6 @@
 package com.cml.eurder.domain.item;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Item implements Orderable {
@@ -9,6 +10,8 @@ public class Item implements Orderable {
     private int stockAmount;
     private Price price;
     private boolean available;
+    private LocalDate shippingDate;
+    private int itemAmount;
 
     public Item(ItemBuilder itemBuilder) {
         this.id = UUID.randomUUID().toString();
@@ -16,31 +19,63 @@ public class Item implements Orderable {
         this.description = itemBuilder.description;
         this.stockAmount = itemBuilder.stockAmount;
         this.price = itemBuilder.price;
-        this.available = true;
+        this.itemAmount = itemBuilder.itemAmount;
+//        setItemToAvailableIfStockISEnough();
+        setShippingDate();
     }
+
+    public void setShippingDate() {
+        if(stockAmount > 0){
+            shippingDate = LocalDate.now().plusDays(1);
+        } else {
+            shippingDate = LocalDate.now().plusWeeks(1);
+        }
+
+    }
+
+    public void deductFromStockAmount(int stockAmount) {
+        this.stockAmount -= stockAmount;
+    }
+
+
+//    private void setItemToAvailableIfStockISEnough() {
+//        if(stockAmount != 0){
+//            this.available = true;
+//        }
+//    }
+
 
     public boolean isAvailable() {
         return available;
     }
 
+
+    public void setItemAmount(int itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public int getItemAmount() {
+        return itemAmount;
+    }
+
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public Price getPrice() {
-        return null;
+        return price;
     }
 
     @Override
-    public int getAmount() {
-        return 0;
+    public int getStockAmount() {
+        return stockAmount;
     }
 
     @Override
@@ -48,11 +83,16 @@ public class Item implements Orderable {
         return id;
     }
 
+    public LocalDate getShippingDate() {
+        return shippingDate;
+    }
+
     public static class ItemBuilder {
         private String name;
         private String description;
         private int stockAmount;
         private Price price;
+        private int itemAmount;
 
         private ItemBuilder() {
         }
@@ -78,6 +118,10 @@ public class Item implements Orderable {
         }
         public ItemBuilder withPrice(Price price) {
             this.price = price;
+            return this;
+        }
+        public ItemBuilder withItemAmount(int itemAmount) {
+            this.itemAmount = itemAmount;
             return this;
         }
     }

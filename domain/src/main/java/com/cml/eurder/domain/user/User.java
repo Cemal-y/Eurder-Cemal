@@ -11,14 +11,14 @@ public class User {
     private String phoneNumber;
     private Role role;
 
-    public User(UserBuilder userBuilder) {
+    public User(Builder<?> builder) {
         this.id = UUID.randomUUID().toString();
-        this.firstName = userBuilder.firstName;
-        this.lastName = userBuilder.lastName;
-        this.email = userBuilder.email;
-        this.address = userBuilder.address;
-        this.phoneNumber = userBuilder.phoneNumber;
-        this.role = userBuilder.role;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.address = builder.address;
+        this.phoneNumber = builder.phoneNumber;
+        this.role = builder.role;
     }
 
     public String getId() {
@@ -49,7 +49,7 @@ public class User {
         return role;
     }
 
-    public static class UserBuilder {
+    public static abstract class Builder<T extends User> {
         private String firstName;
         private String lastName;
         private String email;
@@ -57,37 +57,40 @@ public class User {
         private String phoneNumber;
         public Role role;
 
-        private UserBuilder() {
+        public Builder() {
         }
 
-        public static UserBuilder userBuilder() {
-            return new UserBuilder();
+        public static Builder<?> builder() {
+            return new Builder<User>() {
+                @Override
+                public User build() {
+                    return new User(this);
+                }
+            };
         }
-        public User build() {
-            return new User(this);
-        }
+        public abstract T build();
 
-        public UserBuilder withFirstName(String firstName) {
+        public Builder<T> withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
-        public UserBuilder withLastName(String lastName) {
+        public Builder<T> withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
-        public UserBuilder withEmail(String email) {
+        public Builder<T> withEmail(String email) {
             this.email = email;
             return this;
         }
-        public UserBuilder withAddress(Address address) {
+        public Builder<T> withAddress(Address address) {
             this.address = address;
             return this;
         }
-        public UserBuilder withPhoneNumber(String phoneNumber) {
+        public Builder<T> withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
-        public UserBuilder withRole(Role role) {
+        public Builder<T> withRole(Role role) {
             this.role = role;
             return this;
         }

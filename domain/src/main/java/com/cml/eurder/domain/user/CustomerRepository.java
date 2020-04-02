@@ -1,23 +1,20 @@
 package com.cml.eurder.domain.user;
 
 import com.cml.eurder.domain.exceptions.InputCanNotBeNullException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import static com.cml.eurder.domain.user.Address.AddressBuilder.addressBuilder;
 import static com.cml.eurder.domain.user.Role.CUSTOMER;
-import static com.cml.eurder.domain.user.User.UserBuilder.userBuilder;
+import static com.cml.eurder.domain.user.User.Builder.builder;
 
 @Repository
-public class UserRepository {
+public class CustomerRepository {
     ConcurrentHashMap<String, User> userDatabase;
 
-    public UserRepository() {
+    public CustomerRepository() {
         userDatabase = new ConcurrentHashMap<>();
         createDefaultData();
     }
@@ -29,8 +26,11 @@ public class UserRepository {
     }
 
     public Collection<User> getAllUsers(){
-        return userDatabase.values()
-                .stream().collect(Collectors.toList());
+        return userDatabase.values();
+    }
+
+    public User getCustomerById(String id){
+        return userDatabase.get(id);
     }
 
     public ConcurrentHashMap<String, User> getUserDatabase() {
@@ -44,7 +44,7 @@ public class UserRepository {
     }
 
     private void createDefaultData(){
-        User user1 = userBuilder()
+        User user1 = builder()
                 .withFirstName("John")
                 .withLastName("Doe")
                 .withPhoneNumber("5464646565")

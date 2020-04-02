@@ -2,10 +2,12 @@ package com.cml.eurder.api.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component
 public class UserAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
     public static final String NAME_OF_REALM = "USERRealm";
 
