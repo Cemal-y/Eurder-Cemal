@@ -3,8 +3,10 @@ package com.cml.eurder.domain.order;
 import com.cml.eurder.domain.exceptions.InputCanNotBeNullException;
 import com.cml.eurder.domain.item.Currency;
 import com.cml.eurder.domain.item.Item;
+import com.cml.eurder.domain.item.ItemRepository;
 import com.cml.eurder.domain.item.Price;
 import com.cml.eurder.domain.user.Customer;
+import com.cml.eurder.domain.user.CustomerRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
@@ -68,10 +70,27 @@ public class OrderRepository {
                 .withPrice(new Price(700, EURO)).build();
         Item laptop = itemBuilder().withStockAmount(10).withName("Smarthone")
                 .withPrice(new Price(700, EURO)).build();
-        List<Item> items = List.of(smartphone, laptop);
-        Order order = new Order(customer, items);
-        order.addItemToOrder(smartphone, 2);
-        order.addItemToOrder(laptop, 1);
+        OrderItem orderItem1 = new OrderItem(smartphone, 2);
+        OrderItem orderItem2 = new OrderItem(laptop, 1);
+        Order order = new Order(customer.getId(), List.of(orderItem1, orderItem2));
         orderDatabase.put(order.getID(), order);
+
+////        Item smartphone = itemBuilder().withStockAmount(10).withName("Laptop")
+////                .withPrice(new Price(700, EURO)).build();
+////        Item laptop = itemBuilder().withStockAmount(10).withName("Smarthone")
+////                .withPrice(new Price(700, EURO)).build();
+//        ItemRepository itemRepository = new ItemRepository();
+//        CustomerRepository customerRepository = new CustomerRepository();
+//
+////        List<Item> items = List.of(smartphone, laptop);
+//        ConcurrentHashMap<String, Integer> itemMap = new ConcurrentHashMap<>();
+//        itemRepository.getAllItems().stream()
+//                .forEach(item -> itemMap.put(item.getId(), 1));
+////        itemMap.put(smartphone.getId(), 2);
+////        itemMap.put(laptop.getId(), 1);
+//        Order order = new Order(customer.getId(), itemMap);
+////        order.addItemToOrder(smartphone, 2);
+////        order.addItemToOrder(laptop, 1);
+//        orderDatabase.put(order.getID(), order);
     }
 }

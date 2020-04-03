@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
+    @PreAuthorize("hasAuthority('VIEW_ALL_CUSTOMERS')")
     @GetMapping(produces = "application/json")
     @ApiOperation(value = "Get all customers", notes = "A list of all customers will be returned", response = CustomerDto.class)
     @ResponseStatus(HttpStatus.OK)
@@ -42,6 +44,7 @@ public class CustomerController {
         return customerService.addCustomer(customerDto);
     }
 
+    @PreAuthorize("hasAuthority('VIEW_DETAILS_OF_CUSTOMER')")
     @GetMapping(path = "/details/{id}", produces = "application/json")
     @ApiOperation(value = "Get customer by id", notes = "Details of a customer will be returned when id is provided", response = CustomerDto.class)
     @ResponseStatus(HttpStatus.OK)

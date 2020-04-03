@@ -17,7 +17,7 @@ public class CustomerMapper {
 
     public CustomerDto toDto(User user) {
         return new CustomerDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress()
-        ,user.getPhoneNumber(), user.getRole());
+        ,user.getPhoneNumber(), user.getPassWord(), user.getRole());
     }
 
     public User toUser(CustomerDto customerDto) {
@@ -28,6 +28,7 @@ public class CustomerMapper {
                 .withFirstName(customerDto.getFirstName())
                 .withLastName(customerDto.getLastName())
                 .withPhoneNumber(customerDto.getPhoneNumber())
+                .withPassword(customerDto.getPassword())
                 .build();
     }
 }

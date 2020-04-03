@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class UserAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+
     public static final String NAME_OF_REALM = "USERRealm";
 
     public UserAuthenticationEntryPoint() {
@@ -21,3 +22,4 @@ public class UserAuthenticationEntryPoint extends BasicAuthenticationEntryPoint 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }
+

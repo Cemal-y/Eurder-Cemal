@@ -1,44 +1,37 @@
 package com.cml.eurder.service.order;
 
 import com.cml.eurder.domain.item.Item;
-import com.cml.eurder.domain.order.OrderItem;
 import com.cml.eurder.domain.order.OrderState;
 import com.cml.eurder.domain.user.Customer;
-
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class OrderDto {
-    private String ID;
-    private String customerId;
-    private List<OrderItem> items;
+
+public class CreateOrderDto {
+    private java.lang.String ID;
+    private Customer customer;
+    private ConcurrentHashMap<Item, Integer> items;
     private double totalPrice;
     private OrderState orderState;
 
-    public OrderDto() {
+    public CreateOrderDto() {
     }
-    public OrderDto(String ID, String customerId, List<OrderItem> items, double totalPrice, OrderState orderState) {
-        this.ID = ID;
-        this.customerId = customerId;
+
+    public CreateOrderDto(Customer customer, ConcurrentHashMap<Item, Integer> items, double totalPrice, OrderState orderState) {
+        this.customer = customer;
         this.items = items;
         this.totalPrice = totalPrice;
         this.orderState = orderState;
     }
 
-    public String getID() {
+    public java.lang.String getID() {
         return ID;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    //    public List<Item> getItems() {
-//        return items;
-//    }
-
-
-    public List<OrderItem> getItems() {
+    public ConcurrentHashMap<Item, Integer> getItems() {
         return items;
     }
 

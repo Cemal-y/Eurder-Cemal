@@ -7,34 +7,35 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.cml.eurder.domain.user.Address.AddressBuilder.addressBuilder;
+import static com.cml.eurder.domain.user.Role.ADMIN;
 import static com.cml.eurder.domain.user.Role.CUSTOMER;
 import static com.cml.eurder.domain.user.User.Builder.builder;
 
 @Repository
-public class CustomerRepository {
-    ConcurrentHashMap<String, User> userDatabase;
+public class EmployeeRepository {
+    ConcurrentHashMap<String, User> employeeDatabase;
 
-    public CustomerRepository() {
-        userDatabase = new ConcurrentHashMap<>();
+    public EmployeeRepository() {
+        employeeDatabase = new ConcurrentHashMap<>();
         createDefaultData();
     }
 
-    public User addUser(User user){
-        checkIfInputNull(user);
-        userDatabase.put(user.getId(), user);
-        return user;
+    public User addEmployee(User employee){
+        checkIfInputNull(employee);
+        employeeDatabase.put(employee.getId(), employee);
+        return employee;
     }
 
     public Collection<User> getAllUsers(){
-        return userDatabase.values();
+        return employeeDatabase.values();
     }
 
     public User getCustomerById(String id){
-        return userDatabase.get(id);
+        return employeeDatabase.get(id);
     }
 
     public ConcurrentHashMap<String, User> getUserDatabase() {
-        return userDatabase;
+        return employeeDatabase;
     }
 
     public static <T> void checkIfInputNull(T input) {
@@ -44,15 +45,14 @@ public class CustomerRepository {
     }
 
     private void createDefaultData(){
-        User user1 = builder()
+        User employee1 = builder()
                 .withFirstName("John")
-                .withLastName("Doe")
-                .withPhoneNumber("5464646565")
-                .withEmail("john@doe.com")
+                .withLastName("Snow")
+                .withPhoneNumber("4894889449")
+                .withEmail("john@snow.com")
                 .withPassword("abc")
                 .withAddress(addressBuilder().withCity("Brussel").withStreet("abc").build())
-                .withRole(CUSTOMER).build();
-
-        userDatabase.put(user1.getId(), user1);
+                .withRole(ADMIN).build();
+        employeeDatabase.put(employee1.getId(), employee1);
     }
 }

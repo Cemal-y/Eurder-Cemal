@@ -11,7 +11,11 @@ public class Item implements Orderable {
     private Price price;
     private boolean available;
     private LocalDate shippingDate;
-    private int itemAmount;
+//    private int itemAmount;
+
+    public Item() {
+        setShippingDate();
+    }
 
     public Item(ItemBuilder itemBuilder) {
         this.id = UUID.randomUUID().toString();
@@ -19,7 +23,7 @@ public class Item implements Orderable {
         this.description = itemBuilder.description;
         this.stockAmount = itemBuilder.stockAmount;
         this.price = itemBuilder.price;
-        this.itemAmount = itemBuilder.itemAmount;
+//        this.itemAmount = itemBuilder.itemAmount;
 //        setItemToAvailableIfStockISEnough();
         setShippingDate();
     }
@@ -37,8 +41,27 @@ public class Item implements Orderable {
         this.stockAmount -= stockAmount;
     }
 
+    public Item setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-//    private void setItemToAvailableIfStockISEnough() {
+    public Item setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+
+    public Item setPrice(Price price) {
+        this.price = price;
+        return this;
+    }
+
+    public Item setStockAmount(int stockAmount) {
+        this.stockAmount = stockAmount;
+        return this;
+    }
+    //    private void setItemToAvailableIfStockISEnough() {
 //        if(stockAmount != 0){
 //            this.available = true;
 //        }
@@ -50,13 +73,13 @@ public class Item implements Orderable {
     }
 
 
-    public void setItemAmount(int itemAmount) {
-        this.itemAmount = itemAmount;
-    }
-
-    public int getItemAmount() {
-        return itemAmount;
-    }
+//    public void setItemAmount(int itemAmount) {
+//        this.itemAmount = itemAmount;
+//    }
+//
+//    public int getItemAmount() {
+//        return itemAmount;
+//    }
 
     @Override
     public String getName() {
@@ -92,7 +115,7 @@ public class Item implements Orderable {
         private String description;
         private int stockAmount;
         private Price price;
-        private int itemAmount;
+//        private int itemAmount;
 
         private ItemBuilder() {
         }
@@ -120,9 +143,9 @@ public class Item implements Orderable {
             this.price = price;
             return this;
         }
-        public ItemBuilder withItemAmount(int itemAmount) {
-            this.itemAmount = itemAmount;
-            return this;
-        }
+//        public ItemBuilder withItemAmount(int itemAmount) {
+//            this.itemAmount = itemAmount;
+//            return this;
+//        }
     }
 }

@@ -16,6 +16,7 @@ public class CustomerDto {
     private String email;
     private Address address;
     private String phoneNumber;
+    private String password;
     private Role role;
 
     public CustomerDto() {
@@ -34,13 +35,15 @@ public class CustomerDto {
 //    }
 
 
-    public CustomerDto(String id, String firstName, String lastName, String email, Address address, String phoneNumber, Role role) {
+    public CustomerDto(String id, String firstName, String lastName, String email
+            , Address address, String phoneNumber, String password, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.password = password;
         this.role = role;
     }
 
@@ -71,5 +74,9 @@ public class CustomerDto {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

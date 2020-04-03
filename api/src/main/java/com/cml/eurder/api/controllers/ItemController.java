@@ -15,7 +15,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(path = ItemController.ITEM_RESOURCE_PATH)
-//@PreAuthorize("isAuthenticated()")
 public class ItemController {
     public static final String ITEM_RESOURCE_PATH = "/items";
     private final Logger logger = LoggerFactory.getLogger(ItemController.class);
@@ -29,7 +28,6 @@ public class ItemController {
     }
 
     @GetMapping(produces = "application/json")
-    @PreAuthorize("permitAll()")
     @ApiOperation(value = "Get all items", notes = "A list of items will be returned", response = ItemDto.class)
     @ResponseStatus(HttpStatus.OK)
     public Collection<ItemDto> getAllItems() {
@@ -37,13 +35,22 @@ public class ItemController {
         return itemService.getAllItemsInTheDataBase();
     }
 
+    @PreAuthorize("hasAuthority('ADD_ITEM')")
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-    @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "Add item", notes = "An item will be added to the items database", response = ItemDto.class)
     @ResponseStatus(HttpStatus.CREATED)
     public ItemDto addItem(@RequestBody ItemDto itemDto) {
         logger.info("Adding a new item");
         return itemService.addItem(itemDto);
+    }
+
+    @PreAuthorize("hasAuthority('UPDATE_ITEM')")
+    @PutMapping(path = "/update/{ID}", consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "Update item", notes = "The item will be updated", response = ItemDto.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ItemDto updateItem(@RequestBody ItemDto itemDto, @PathVariable("ID") String id) {
+        logger.info("Updating an item");
+        return itemService.updateItem(itemDto, id);
     }
 
 }

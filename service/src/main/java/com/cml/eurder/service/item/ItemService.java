@@ -1,5 +1,6 @@
 package com.cml.eurder.service.item;
 
+import com.cml.eurder.domain.item.Item;
 import com.cml.eurder.domain.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class ItemService {
 
     public ItemDto addItem(ItemDto itemDto){
         return itemMapper.toDto(itemRepository.addItem(itemMapper.toItem(itemDto)));
+    }
+
+    public ItemDto updateItem(ItemDto itemDto, String id) {
+        return itemMapper.toDto(itemRepository.updateItem(itemMapper.toItem(itemDto), id));
     }
 }

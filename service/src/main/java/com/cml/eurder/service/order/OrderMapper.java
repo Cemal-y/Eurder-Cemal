@@ -1,14 +1,10 @@
 package com.cml.eurder.service.order;
 
-import com.cml.eurder.domain.item.Item;
 import com.cml.eurder.domain.order.Order;
-import com.cml.eurder.service.item.ItemDto;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
-import static com.cml.eurder.domain.item.Item.ItemBuilder.itemBuilder;
 
 @Component
 public class OrderMapper {
@@ -17,10 +13,11 @@ public class OrderMapper {
     }
 
     public OrderDto toDto(Order order) {
-        return new OrderDto(order.getID(), order.getCustomer(), order.getItems(), order.getTotalPrice(), order.getOrderState());
+        return new OrderDto(order.getID(), order.getCustomerId(), order.getItemsWithAmount()
+                , order.getTotalPrice(), order.getOrderState());
     }
 
     public Order toOrder(OrderDto orderDto) {
-        return new Order(orderDto.getCustomer(), orderDto.getItems());
+        return new Order(orderDto.getCustomerId(), orderDto.getItems());
     }
 }

@@ -1,19 +1,14 @@
 package com.cml.eurder.api.controllers;
 
-import com.cml.eurder.domain.item.ItemRepository;
-import com.cml.eurder.domain.order.Order;
 import com.cml.eurder.domain.order.OrderRepository;
-import com.cml.eurder.domain.user.CustomerRepository;
-import com.cml.eurder.service.item.ItemService;
 import com.cml.eurder.service.order.OrderDto;
 import com.cml.eurder.service.order.OrderService;
-import com.cml.eurder.service.user.CustomerDto;
-import com.cml.eurder.service.user.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -32,6 +27,7 @@ public class OrderController {
         this.orderRepository = orderRepository;
     }
 
+    @PreAuthorize("hasAuthority('VIEW_ALL_ORDERS')")
     @GetMapping(produces = "application/json")
     @ApiOperation(value = "Get all orders", notes = "A list of all orders will be returned", response = OrderDto.class)
     @ResponseStatus(HttpStatus.OK)
@@ -40,6 +36,7 @@ public class OrderController {
         return orderService.getAllActiveOrders();
     }
 
+    @PreAuthorize("hasAuthority('CREATE_ORDER')")
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     @ApiOperation(value = "Create order", notes = "A new order will be created", response = OrderDto.class)
     @ResponseStatus(HttpStatus.CREATED)

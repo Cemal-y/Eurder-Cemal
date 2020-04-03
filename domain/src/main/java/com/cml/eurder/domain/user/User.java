@@ -9,6 +9,7 @@ public class User {
     private String email;
     private Address address;
     private String phoneNumber;
+    private String passWord;
     private Role role;
 
     public User(Builder<?> builder) {
@@ -17,6 +18,7 @@ public class User {
         this.lastName = builder.lastName;
         this.email = builder.email;
         this.address = builder.address;
+        this.passWord = builder.password;
         this.phoneNumber = builder.phoneNumber;
         this.role = builder.role;
     }
@@ -49,12 +51,17 @@ public class User {
         return role;
     }
 
+    public String getPassWord() {
+        return passWord;
+    }
+
     public static abstract class Builder<T extends User> {
         private String firstName;
         private String lastName;
         private String email;
         private Address address;
         private String phoneNumber;
+        private String password;
         public Role role;
 
         public Builder() {
@@ -92,6 +99,10 @@ public class User {
         }
         public Builder<T> withRole(Role role) {
             this.role = role;
+            return this;
+        }
+        public Builder<T> withPassword(String password) {
+            this.password = password;
             return this;
         }
     }
