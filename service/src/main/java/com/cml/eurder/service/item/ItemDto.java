@@ -1,10 +1,8 @@
 package com.cml.eurder.service.item;
 
 import com.cml.eurder.domain.item.Price;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemDto {
@@ -13,7 +11,8 @@ public class ItemDto {
     private String description;
     private int stockAmount;
     private Price price;
-    private boolean available;
+    private boolean isInStock;
+    private LocalDate shippingDate;
 
     public ItemDto() {
     }
@@ -30,13 +29,14 @@ public class ItemDto {
 //    }
 
 
-    public ItemDto(String id, String name, String description, int stockAmount, Price price, boolean available) {
+    public ItemDto(String id, String name, String description, int stockAmount, Price price, boolean isInStock, LocalDate shippingDate) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.stockAmount = stockAmount;
         this.price = price;
-        this.available = available;
+        this.isInStock = isInStock;
+        this.shippingDate = shippingDate;
     }
 
     public String getId() {
@@ -59,7 +59,11 @@ public class ItemDto {
         return price;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public boolean isInStock() {
+        return isInStock;
+    }
+
+    public LocalDate getShippingDate() {
+        return shippingDate;
     }
 }

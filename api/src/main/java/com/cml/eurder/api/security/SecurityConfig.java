@@ -1,8 +1,5 @@
 package com.cml.eurder.api.security;
 
-import com.cml.eurder.api.controllers.CustomerController;
-import com.cml.eurder.api.controllers.ItemController;
-import com.cml.eurder.api.controllers.OrderController;
 import com.cml.eurder.api.exceptions.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,9 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.csrf().disable().authorizeRequests()
-                .antMatchers(CustomerController.CUSTOMER_RESOURCE_PATH + "/**").permitAll()
-                .antMatchers(ItemController.ITEM_RESOURCE_PATH + "/**").permitAll()
-                .antMatchers(OrderController.ORDER_RESOURCE_PATH + "/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .authenticationEntryPoint(authEntryPoint)
@@ -47,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
     }
+
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){

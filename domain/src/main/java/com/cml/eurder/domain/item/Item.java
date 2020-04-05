@@ -9,12 +9,11 @@ public class Item implements Orderable {
     private String description;
     private int stockAmount;
     private Price price;
-    private boolean available;
+    private boolean isInStock;
     private LocalDate shippingDate;
-//    private int itemAmount;
 
     public Item() {
-        setShippingDate();
+//        setShippingDate();
     }
 
     public Item(ItemBuilder itemBuilder) {
@@ -23,22 +22,26 @@ public class Item implements Orderable {
         this.description = itemBuilder.description;
         this.stockAmount = itemBuilder.stockAmount;
         this.price = itemBuilder.price;
-//        this.itemAmount = itemBuilder.itemAmount;
-//        setItemToAvailableIfStockISEnough();
         setShippingDate();
     }
 
     public void setShippingDate() {
-        if(stockAmount > 0){
-            shippingDate = LocalDate.now().plusDays(1);
-        } else {
+        if(stockAmount == 0){
             shippingDate = LocalDate.now().plusWeeks(1);
+        } else {
+            shippingDate = LocalDate.now().plusDays(1);
         }
 
     }
 
-    public void deductFromStockAmount(int stockAmount) {
-        this.stockAmount -= stockAmount;
+    public void deductFromStockAmount(int orderAmount) {
+        if (stockAmount > 0 && stockAmount > orderAmount){
+            stockAmount = stockAmount - orderAmount;
+        } else {
+            stockAmount = 0;
+        }
+        setItemToAvailableIfStockISEnough();
+        setShippingDate();
     }
 
     public Item setName(String name) {
@@ -61,25 +64,20 @@ public class Item implements Orderable {
         this.stockAmount = stockAmount;
         return this;
     }
-    //    private void setItemToAvailableIfStockISEnough() {
-//        if(stockAmount != 0){
-//            this.available = true;
-//        }
-//    }
 
-
-    public boolean isAvailable() {
-        return available;
+    private void setItemToAvailableIfStockISEnough() {
+        if(stockAmount > 0){
+            this.isInStock = true;
+        } else {
+            this.isInStock = false;
+        }
     }
 
 
-//    public void setItemAmount(int itemAmount) {
-//        this.itemAmount = itemAmount;
-//    }
-//
-//    public int getItemAmount() {
-//        return itemAmount;
-//    }
+    public boolean isInStock() {
+        return isInStock;
+    }
+
 
     @Override
     public String getName() {
@@ -115,7 +113,6 @@ public class Item implements Orderable {
         private String description;
         private int stockAmount;
         private Price price;
-//        private int itemAmount;
 
         private ItemBuilder() {
         }
@@ -143,9 +140,5 @@ public class Item implements Orderable {
             this.price = price;
             return this;
         }
-//        public ItemBuilder withItemAmount(int itemAmount) {
-//            this.itemAmount = itemAmount;
-//            return this;
-//        }
     }
 }

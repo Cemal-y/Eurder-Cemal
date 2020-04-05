@@ -1,6 +1,10 @@
 package com.cml.eurder.domain.item;
 
+import com.cml.eurder.domain.DefaultData;
 import com.cml.eurder.domain.exceptions.InputCanNotBeNullException;
+import com.cml.eurder.domain.exceptions.ItemNotFoundException;
+import com.cml.eurder.domain.order.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -13,8 +17,12 @@ import static com.cml.eurder.domain.item.Item.ItemBuilder.itemBuilder;
 public class ItemRepository {
     private ConcurrentHashMap<String, Item> itemDatabase;
 
-    public ItemRepository() {
+    DefaultData defaultData;
+    @Autowired
+    public ItemRepository(DefaultData defaultData) {
         this.itemDatabase = new ConcurrentHashMap<>();
+        this.defaultData = defaultData;
+//        this.defaultData = new DefaultData();
         createDefaultData();
     }
 
@@ -46,15 +54,13 @@ public class ItemRepository {
     }
 
 
+
+
 //    private void checkIfItemIsAvailable(Item item) {
 //        if (!item.isAvailable()){
 //            throw new ItemIsNotAvailableException();
 //        }
 //    }
-    public static Item getItemByIdV2(String id){
-            ItemRepository itemRepository = new ItemRepository();
-           return itemRepository.itemDatabase.get(id);
-    }
 
     public static <T> void checkIfInputNull(T input) {
         if (input == null) {
@@ -63,11 +69,14 @@ public class ItemRepository {
     }
 
     public void createDefaultData(){
-        Item smartphone = itemBuilder().withStockAmount(10).withName("Laptop")
-                .withPrice(new Price(700, EURO)).build();
-        Item laptop = itemBuilder().withStockAmount(10).withName("Smarthone")
-                .withPrice(new Price(700, EURO)).build();
-        itemDatabase.put(smartphone.getId(), smartphone);
-        itemDatabase.put(laptop.getId(), laptop);
+//        Item smartphone = itemBuilder().withStockAmount(10).withName("Laptop")
+//                .withPrice(new Price(700, EURO)).build();
+//        Item laptop = itemBuilder().withStockAmount(10).withName("Smarthone")
+//                .withPrice(new Price(700, EURO)).build();
+//        itemDatabase.put(smartphone.getId(), smartphone);
+//        itemDatabase.put(laptop.getId(), laptop);
+        for (Item item : defaultData.getDefaultItems()){
+            this.addItem(item);
+        }
     }
 }

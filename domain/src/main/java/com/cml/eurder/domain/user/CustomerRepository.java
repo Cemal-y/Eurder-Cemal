@@ -1,6 +1,10 @@
 package com.cml.eurder.domain.user;
 
+import com.cml.eurder.domain.DefaultData;
 import com.cml.eurder.domain.exceptions.InputCanNotBeNullException;
+import com.cml.eurder.domain.exceptions.ItemNotFoundException;
+import com.cml.eurder.domain.item.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -14,8 +18,11 @@ import static com.cml.eurder.domain.user.User.Builder.builder;
 public class CustomerRepository {
     ConcurrentHashMap<String, User> userDatabase;
 
-    public CustomerRepository() {
+    DefaultData defaultData;
+    @Autowired
+    public CustomerRepository(DefaultData defaultData) {
         userDatabase = new ConcurrentHashMap<>();
+        this.defaultData = defaultData;
         createDefaultData();
     }
 
@@ -44,15 +51,8 @@ public class CustomerRepository {
     }
 
     private void createDefaultData(){
-        User user1 = builder()
-                .withFirstName("John")
-                .withLastName("Doe")
-                .withPhoneNumber("5464646565")
-                .withEmail("john@doe.com")
-                .withPassword("abc")
-                .withAddress(addressBuilder().withCity("Brussel").withStreet("abc").build())
-                .withRole(CUSTOMER).build();
-
-        userDatabase.put(user1.getId(), user1);
+        for (User customer:defaultData.getDefaultCustomers()){
+            this.addUser(customer);
+        }
     }
 }

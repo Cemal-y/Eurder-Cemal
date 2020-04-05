@@ -16,7 +16,7 @@ public class ItemMapper {
 
     public ItemDto toDto(Item item) {
         return new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getStockAmount(), item.getPrice()
-        , item.isAvailable());
+        , item.isInStock(), item.getShippingDate());
     }
 
     public Item toItem(ItemDto itemDto) {
