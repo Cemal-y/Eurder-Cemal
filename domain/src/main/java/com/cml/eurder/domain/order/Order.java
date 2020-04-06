@@ -11,7 +11,7 @@ import static com.cml.eurder.domain.order.OrderState.IN_PROGRESS;
 public class Order {
     private final String ID;
     private User customer;
-    List<OrderItem> itemsWithAmount;
+    private List<OrderItem> itemsWithAmount;
     private double totalPrice;
     private OrderState orderState;
 
@@ -36,6 +36,7 @@ public class Order {
 //        item.deductFromStockAmount(amount);
 //        items.add(item);
 //    }
+
 
 
     public void setOrderAsDelivered(){
